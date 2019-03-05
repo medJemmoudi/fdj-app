@@ -2,7 +2,8 @@ import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { fetchPricing } from '../actions/PricingActions';
-import { AddRegularNumber, AddStaredNumber } from '../actions/GridActions';
+import { AddRegularNumber, AddStaredNumber, updatePrice } from '../actions/GridActions';
+import { getTotalPrice } from '../selectors'
 
 const numbers = _.range(1, 51);
 const stars = _.range(1, 12);
@@ -18,7 +19,7 @@ class GameGrid extends React.Component {
 		let { selectedNumbers } = this.props.grid;
 
 		if (selectedNumbers.length < 5) {
-			this.props.AddRegularNumber(attributes['data-number'].value);
+			this.props.AddRegularNumber(parseInt(attributes['data-number'].value));
 		}
 	}
 
@@ -26,8 +27,8 @@ class GameGrid extends React.Component {
 		let { attributes } = e.target;
 		let { selectedStars } = this.props.grid;
 
-		if (selectedStars.length < 5) {
-			this.props.AddStaredNumber(attributes['data-number'].value);
+		if (selectedStars.length < 2) {
+			this.props.AddStaredNumber(parseInt(attributes['data-number'].value));
 		}
 	}
 
@@ -66,7 +67,7 @@ class GameGrid extends React.Component {
 	            </div>
 	          </div>
 	          <div className="col-sm-2 offset-sm-10 grid-sum">
-	            <p>Total: <strong>{ '102' }</strong></p>
+	            <p>Total: <strong>{ this.props.totalPrice }</strong></p>
 	          </div>
 	        </div>
 		);
@@ -76,10 +77,11 @@ class GameGrid extends React.Component {
 const mapStateToProps = (state) => {
 	return {
 		pricingTable: state.prices.prices,
-		grid: state.grid
+		grid: state.grid,
+		totalPrice: getTotalPrice(state)
 	}
 };
 
-const mappedActions = { fetchPricing, AddRegularNumber, AddStaredNumber };
+const mappedActions = { fetchPricing, AddRegularNumber, AddStaredNumber, updatePrice };
 
 export default connect(mapStateToProps, mappedActions)(GameGrid);

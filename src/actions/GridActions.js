@@ -14,3 +14,10 @@ export const AddStaredNumber = (number) => dispatch => {
 		payload: number
 	});
 };
+
+export const updatePrice = (number) => dispatch => {
+	dispatch({
+		type: ActionTypes.UPDATE_PRICE,
+		payload: number
+	});
+};
