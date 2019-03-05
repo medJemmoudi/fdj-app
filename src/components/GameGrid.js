@@ -2,6 +2,7 @@ import React from 'react';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { fetchPricing } from '../actions/PricingActions';
+import { AddRegularNumber, AddStaredNumber } from '../actions/GridActions';
 
 const numbers = _.range(1, 51);
 const stars = _.range(1, 12);
@@ -12,13 +13,44 @@ class GameGrid extends React.Component {
 		this.props.fetchPricing();
 	}
 
+	selectNumber = (e) => {
+		let { attributes } = e.target;
+		let { selectedNumbers } = this.props.grid;
+
+		if (selectedNumbers.length < 5) {
+			this.props.AddRegularNumber(attributes['data-number'].value);
+		}
+	}
+
+	selectStar = (e) => {
+		let { attributes } = e.target;
+		let { selectedStars } = this.props.grid;
+
+		if (selectedStars.length < 5) {
+			this.props.AddStaredNumber(attributes['data-number'].value);
+		}
+	}
+
 	render() {
 		const listOfNumbers = numbers.map((num, index) => (
-	      <span className="number-item" key={ index }>{ num }</span>
+	      <span 
+	      	className={ this.props.grid.selectedNumbers.includes(num) ? "number-item selected" : "number-item" } 
+	      	data-number={ num } 
+	      	key={ index }
+	      	onClick={this.selectNumber}>
+	      		{ num }
+	      </span>
 	    ));
 
 	    const listOfStars = stars.map((num, index) => (
-	      <span className="star-item" key={ index }>{ num }</span>
+	      <span 
+	      	className={ this.props.grid.selectedStars.includes(num) ? "star-item selected" : "star-item" } 
+	      	data-number={ num } 
+	      	key={ index }
+	      	onClick={this.selectStar}
+	      >
+	      	{ num }
+	      </span>
 	    ));
 
 		return (
@@ -43,8 +75,11 @@ class GameGrid extends React.Component {
 
 const mapStateToProps = (state) => {
 	return {
-		pricingTable: state.prices.prices
+		pricingTable: state.prices.prices,
+		grid: state.grid
 	}
 };
 
-export default connect(mapStateToProps, { fetchPricing })(GameGrid);
+const mappedActions = { fetchPricing, AddRegularNumber, AddStaredNumber };
+
+export default connect(mapStateToProps, mappedActions)(GameGrid);
