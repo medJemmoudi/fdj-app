@@ -1,0 +1,95 @@
+$numberDim: 30px;
+
+@mixin blankRoundedBloc() {
+	background-color: #fff;
+	border-radius: 10px;
+	padding-top: 5px;
+	padding-bottom: 5px;
+}
+
+header {
+	min-height: 100px;
+	margin-bottom: 15px;
+	text-align: center;
+	img {
+		display: inline-block;
+		margin: auto;
+		height: 115px;
+	}
+}
+
+.blank-grid {
+	@include blankRoundedBloc();
+}
+
+.grid-entry {
+	span.number-item {
+	    display: inline-block;
+	    width: $numberDim;
+	    height: $numberDim;
+	    margin: 5px;
+	    text-align: center;
+	    line-height: $numberDim;
+	    background-color: #DED;
+	    float: left;
+	    border-radius: 7px;
+	    font-size: 12px;
+	    color: #09509a;
+	    cursor: pointer;
+
+	    &:hover {
+	    	box-shadow: 0px 0px 5px inset #a9a6a6;
+	    }
+
+	    &.selected {
+	    	border: 2px solid blue;
+	    }
+	}
+}
+
+.grid-star-entry {
+	background-color: #fff;
+	border-radius: 10px;
+
+	span.star-item {
+	    display: inline-block;
+	    width: $numberDim;
+	    height: $numberDim;
+	    margin: 5px;
+	    text-align: center;
+	    line-height: $numberDim;
+	    background-image: url('../gold-star.png');
+	    background-size: contain;
+	    float: left;
+	    border-radius: 7px;
+	    font-size: 12px;
+	    color: red;
+	    cursor: pointer;
+
+	    &:hover {
+	    	background-image: url('../gold-star-hover.png');
+	    	color: #FFF;
+	    }
+
+	    &.selected {
+	    	background-image: url('../gold-star-hover.png');
+	    	color: #FFF;
+	    }
+	}
+}
+
+.grid-sum {
+	@include blankRoundedBloc();
+	height: 60px;
+	margin-top: 10px;
+
+	& > p {
+		font-size: 22px;
+	    text-align: center;
+	    line-height: 50px;
+
+	    & > strong::after {
+	    	content: '\20AC';
+	    }
+	}
+}
