@@ -1,10 +1,17 @@
 import React from 'react';
 import _ from 'lodash';
+import { connect } from 'react-redux';
+import { fetchPricing } from '../actions/PricingActions';
 
 const numbers = _.range(1, 51);
 const stars = _.range(1, 12);
 
 class GameGrid extends React.Component {
+
+	componentWillMount() {
+		this.props.fetchPricing();
+	}
+
 	render() {
 		const listOfNumbers = numbers.map((num, index) => (
 	      <span className="number-item" key={ index }>{ num }</span>
@@ -34,4 +41,10 @@ class GameGrid extends React.Component {
 	}
 }
 
-export default GameGrid;
+const mapStateToProps = (state) => {
+	return {
+		pricingTable: state.prices.prices
+	}
+};
+
+export default connect(mapStateToProps, { fetchPricing })(GameGrid);
