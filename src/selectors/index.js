@@ -22,8 +22,6 @@ export const getTotalPrice = createSelector(
     // now we can loop over the pricing table 
     patterns.forEach((pt) => {
       prices.forEach(item => {
-        console.log(pt, item.pattern);
-
         if (_.isEqual(item.pattern, pt))
           totalPrice += item.cost.value / 100;
       });

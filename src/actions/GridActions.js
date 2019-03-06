@@ -21,3 +21,9 @@ export const updatePrice = (number) => dispatch => {
 		payload: number
 	});
 };
+
+export const eraseValues = () => dispatch => {
+	dispatch({
+		type: ActionTypes.ERASE_VALUES
+	});
+};

@@ -15,6 +15,9 @@ export default (state = initialState, action) => {
 		
 		case ActionTypes.UPDATE_PRICE:
 			return { ...state, totalPrice: action.payload };
+		
+		case ActionTypes.ERASE_VALUES:
+			return initialState;
 
 		default:
 			return state;

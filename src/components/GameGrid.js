@@ -1,8 +1,9 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import _ from 'lodash';
 import { connect } from 'react-redux';
 import { fetchPricing } from '../actions/PricingActions';
-import { AddRegularNumber, AddStaredNumber, updatePrice } from '../actions/GridActions';
+import { AddRegularNumber, AddStaredNumber, updatePrice, eraseValues } from '../actions/GridActions';
 import { getTotalPrice } from '../selectors'
 
 const numbers = _.range(1, 51);
@@ -10,7 +11,7 @@ const stars = _.range(1, 12);
 
 class GameGrid extends React.Component {
 
-	componentWillMount() {
+	componentDidMount() {
 		this.props.fetchPricing();
 	}
 
@@ -66,13 +67,32 @@ class GameGrid extends React.Component {
 	              </div>
 	            </div>
 	          </div>
-	          <div className="col-sm-2 offset-sm-10 grid-sum">
+	          <div className="col-sm-2 offset-sm-8">
+	            <button 
+	            	type="button" 
+	            	className="btn btn-danger grid-cancel"
+	            	onClick={ this.props.eraseValues }>
+	            		Effacer
+	            </button>
+	          </div>
+	          <div className="col-sm-2 grid-sum">
 	            <p>Total: <strong>{ this.props.totalPrice }</strong></p>
 	          </div>
 	        </div>
 		);
 	}
 }
+
+GameGrid.propTypes = {
+	pricingTable: PropTypes.array.isRequired,
+	grid: PropTypes.object.isRequired,
+	totalPrice: PropTypes.number.isRequired,
+	fetchPricing: PropTypes.func.isRequired,
+	AddRegularNumber: PropTypes.func.isRequired,
+	AddStaredNumber: PropTypes.func.isRequired,
+	updatePrice: PropTypes.func.isRequired,
+	eraseValues: PropTypes.func.isRequired,
+};
 
 const mapStateToProps = (state) => {
 	return {
@@ -82,6 +102,6 @@ const mapStateToProps = (state) => {
 	}
 };
 
-const mappedActions = { fetchPricing, AddRegularNumber, AddStaredNumber, updatePrice };
+const mappedActions = { fetchPricing, AddRegularNumber, AddStaredNumber, updatePrice, eraseValues };
 
 export default connect(mapStateToProps, mappedActions)(GameGrid);
