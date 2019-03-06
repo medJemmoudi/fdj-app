@@ -1,3 +1,5 @@
+[[https://i.imgur.com/HIb0DQ0.png|alt=FDJ-app]]
+
 This project was bootstrapped with [Create React App]
 
 ### `npm start`
