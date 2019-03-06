@@ -1,4 +1,4 @@
-[[https://i.imgur.com/HIb0DQ0.png|alt=FDJ-app]]
+![fdj game](https://i.imgur.com/HIb0DQ0.png)
 
 This project was bootstrapped with [Create React App]
 
